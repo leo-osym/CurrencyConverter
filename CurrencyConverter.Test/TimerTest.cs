@@ -1,0 +1,49 @@
+﻿using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+
+namespace CurrencyConverter.Test
+{
+    [TestFixture]
+    public class TimerTest
+    {
+        private Timer timer;
+
+        [SetUp]
+        public void SetUp()
+        {
+            timer = new Timer();
+            timer.IsRunning = true;
+        }
+
+        [Test]
+        public void TestGetCurrentFloor()
+        {
+            timer = new Timer();
+            timer.IsRunning = true;
+            timer.onTimeReached += TestTimerEventCome;
+            timer.RunTimer(5000);
+
+            lock (this)
+            {
+                if (!Monitor.Wait(this, 2000)) Assert.Fail("Event did not arrive in time.");
+            }
+        }
+
+        private void TestTimerEventCome()
+        {
+            lock (this)
+            {
+                Monitor.Pulse(this);
+            }
+        }
+
+
+
+
+
+
+    }
+}
