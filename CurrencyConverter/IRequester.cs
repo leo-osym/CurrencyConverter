@@ -5,6 +5,6 @@ namespace CurrencyConverter
 {
     public interface IRequester
     {
-        Task<decimal> RequestAsync(string atr1, string atr2);
+        Task<decimal> RequestAsync(string currencyCode1, string currencyCode2);
     }
 }

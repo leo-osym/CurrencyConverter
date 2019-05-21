@@ -7,11 +7,14 @@ namespace CurrencyConverter
     {
         private IRequester _requester;
         private Timer timer;
-        private string lastCurrencyType1;
-        private string lastCurrencyType2;
-        private decimal lastCourse = -1;
-        private bool timerIsOver = false;
+
+        private decimal lastCourse = 0;
         public string LastTimeUpdated { get; private set; }
+
+        private string lastCurrencyType1 = null;
+        private string lastCurrencyType2 = null;
+
+        private bool timerIsOver = false;
 
         public Interactor(IRequester requester)
         {
@@ -21,24 +24,26 @@ namespace CurrencyConverter
             timer.onTimeReached += () => timerIsOver = true;
         }
 
-        public async Task<string> GetCourse(string atr1, string atr2, string value)
+        public async Task<decimal> GetCourse(string currencyCode1, string currencyCode2, decimal value)
         {
-            if ((atr1 == lastCurrencyType1 && atr2 == lastCurrencyType2 && timerIsOver) 
-                || (atr1 != lastCurrencyType1 || atr2 != lastCurrencyType2))
+            if ((currencyCode1 == lastCurrencyType1 && currencyCode2 == lastCurrencyType2 && timerIsOver)
+                || (currencyCode1 != lastCurrencyType1 || currencyCode2 != lastCurrencyType2))
             {
-                lastCourse = await _requester.RequestAsync(atr1, atr2);
+                lastCurrencyType1 = currencyCode1;
+                lastCurrencyType2 = currencyCode2;
+
+                lastCourse = await _requester.RequestAsync(currencyCode1, currencyCode2);
                 timerIsOver = false;
                 LastTimeUpdated = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
             }
 
-            decimal decimalValue;
-            if ( lastCourse >= 0 && decimal.TryParse(value, out decimalValue))
+            if (lastCourse >= 0)
             {
-                return (lastCourse * decimalValue).ToString();
+                return lastCourse * value;
             }
             else
             {
-                return "Error!";
+                return -1;
             }
         }
     }

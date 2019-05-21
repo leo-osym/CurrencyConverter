@@ -33,11 +33,12 @@ namespace CurrencyConverter.Test
         public async Task GetCourseTest()
         {
             //Given
-            string currencyCode1 = "USD"; 
+            string currencyCode1 = "USD";
             string currencyCode2 = "UAH";
-            string firstValue = "23.5";
+            decimal firstValue = 1M;
             decimal res = 26.4546M;
-            string expected = (res * 23.5M).ToString();
+            decimal expected = res * firstValue;
+
             _requester.Setup(f => f.RequestAsync(currencyCode1, currencyCode2))
                .Returns(Task.FromResult(res));
             //When
@@ -52,8 +53,8 @@ namespace CurrencyConverter.Test
             //Given
             string currencyCode1 = "USD";
             string currencyCode2 = "UAH";
-            string firstValue = "23.5";
-            string expected = "Error!";
+            decimal firstValue = 23.5M;
+            decimal expected = -1M;
             _requester.Setup(f => f.RequestAsync(currencyCode1, currencyCode2))
                .Returns(Task.FromResult(-1M));
             //When
@@ -61,11 +62,6 @@ namespace CurrencyConverter.Test
             //Then
             Assert.AreEqual(expected, actual);
         }
-
-
-
-
-
 
     }
 }

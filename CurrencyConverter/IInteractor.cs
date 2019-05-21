@@ -5,6 +5,6 @@ namespace CurrencyConverter
 {
     public interface IInteractor
     {
-        Task<string> GetCourse(string atr1, string atr2, string value);
+        Task<decimal> GetCourse(string atr1, string atr2, decimal value);
     }
 }

@@ -30,9 +30,7 @@ namespace CurrencyConverter
                 {
                     break;
                 }
-
             }
         }
-
     }
 }

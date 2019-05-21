@@ -23,27 +23,21 @@ namespace CurrencyConverter.Test
         {
             timer = new Timer();
             timer.IsRunning = true;
-            timer.onTimeReached += TestTimerEventCome;
+            timer.onTimeReached += TimerHandler;
             timer.RunTimer(5000);
 
             lock (this)
             {
-                if (!Monitor.Wait(this, 2000)) Assert.Fail("Event did not arrive in time.");
+                if (!Monitor.Wait(this, 6000)) Assert.Fail("Event did not arrive in time.");
             }
         }
 
-        private void TestTimerEventCome()
+        private void TimerHandler()
         {
             lock (this)
             {
                 Monitor.Pulse(this);
             }
         }
-
-
-
-
-
-
     }
 }
