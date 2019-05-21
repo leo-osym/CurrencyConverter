@@ -20,16 +20,16 @@ namespace CurrencyConverter.Droid.FlagList
         {
             FlagDictionary = new Dictionary<string, CurrencyKey>()
             {
-                {"AUD", new CurrencyKey(flag:Resource.Mipmap.au,currencyDescription:"Australian dollar") },
-                {"CAD",new CurrencyKey(flag:Resource.Mipmap.ca,currencyDescription:"Canadian dollar") },
-                {"DKK",new CurrencyKey(flag:Resource.Mipmap.dk,currencyDescription:"Danish krone" )},
-                {"EUR",new CurrencyKey(flag:Resource.Mipmap.eu,currencyDescription:"Euro") },
-                {"GBP", new CurrencyKey(flag:Resource.Mipmap.gb,currencyDescription:"Pound sterling") },
-                {"JPY", new CurrencyKey(flag:Resource.Mipmap.jp,currencyDescription:"Japanese yen")},
-                {"NZD", new CurrencyKey(flag:Resource.Mipmap.nz,currencyDescription:"New Zealand dollar") },
-                {"RUB", new CurrencyKey(flag:Resource.Mipmap.ru,currencyDescription:"Russia ruble") },
-                {"UAH", new CurrencyKey(flag:Resource.Mipmap.ua,currencyDescription:"Ukraine hryvnia") },
-                {"USD", new CurrencyKey(flag:Resource.Mipmap.us,currencyDescription:"United States dollar") },
+                {"AUD", new CurrencyKey(flag:Resource.Mipmap.au,currencyDescription:"Австралийский доллар") },
+                {"CAD",new CurrencyKey(flag:Resource.Mipmap.ca,currencyDescription:"Канадский доллар") },
+                {"DKK",new CurrencyKey(flag:Resource.Mipmap.dk,currencyDescription:"Датская крона" )},
+                {"EUR",new CurrencyKey(flag:Resource.Mipmap.eu,currencyDescription:"Евро") },
+                {"GBP", new CurrencyKey(flag:Resource.Mipmap.gb,currencyDescription:"Фунт стерлингов") },
+                {"JPY", new CurrencyKey(flag:Resource.Mipmap.jp,currencyDescription:"Японская йена")},
+                {"NZD", new CurrencyKey(flag:Resource.Mipmap.nz,currencyDescription:"Новозеландский доллар") },
+                {"RUB", new CurrencyKey(flag:Resource.Mipmap.ru,currencyDescription:"Российский рубль") },
+                {"UAH", new CurrencyKey(flag:Resource.Mipmap.ua,currencyDescription:"Украинская гривна") },
+                {"USD", new CurrencyKey(flag:Resource.Mipmap.us,currencyDescription:"Американский доллар") },
             };
 
 

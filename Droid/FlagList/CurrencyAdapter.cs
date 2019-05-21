@@ -43,7 +43,7 @@ namespace CurrencyConverter.Droid.FlagList
             var desc = CurrencyObj.CurrencyDescription;
             viewHolder.ImageView.SetImageResource(flag);
             viewHolder.FlagsId.Text = key;
-            viewHolder.FlagsDescriprion.Text = desc;
+            viewHolder.FlagsDescriprion.Text = "  —  " + desc;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)

@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Android;
 using Android.App;
 using Android.Content;
+using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.Content;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -30,21 +33,25 @@ namespace CurrencyConverter.Droid.CustomView
         public CustomMainView(Context context) : base(context)
         {
             _context = context;
+            Init();
         }
 
         public CustomMainView(Context context, IAttributeSet attrs) : base(context, attrs)
         {
             _context = context;
+            Init();
         }
 
         public CustomMainView(Context context, IAttributeSet attrs, int defStyleAttr) : base(context, attrs, defStyleAttr)
         {
             _context = context;
+            Init();
         }
 
         public CustomMainView(Context context, IAttributeSet attrs, int defStyleAttr, int defStyleRes) : base(context, attrs, defStyleAttr, defStyleRes)
         {
             _context = context;
+            Init();
         }
 
         protected CustomMainView(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
@@ -52,14 +59,21 @@ namespace CurrencyConverter.Droid.CustomView
            
         }
 
-        protected override void OnFinishInflate()
+
+        protected  void Init()
         {
-            base.OnFinishInflate();
+           
             _inflater = LayoutInflater.From(Context);
             _inflater.Inflate(Resource.Layout.Main, this, true);
             InitViewComponents();
+            //var draw = ContextCompat.GetDrawable(_context, Resource.Mipmap.au);
+            //_leftButton.SetCompoundDrawablesWithIntrinsicBounds(draw, null, null, null);
+          
+            _leftButton.SetCompoundDrawablesWithIntrinsicBounds(Resource.Mipmap.au, 0, 0, 0);
+            _leftButton.SetTextColor(Color.Black);
+            _leftButton.Text="Hello";
 
-        
+
         }
 
         

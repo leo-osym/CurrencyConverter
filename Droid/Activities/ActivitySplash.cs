@@ -17,7 +17,7 @@ using CurrencyConverter.Droid.FlagList;
 namespace CurrencyConverter.Droid.Activities
 {
     [Activity(MainLauncher = true,Theme ="@style/MyTheme.Splash",NoHistory =true)]
-    class ActivitySplash : AppCompatActivity
+    class ActivitySplash :AppCompatActivity
     {
         static readonly string TAG = "X:" + typeof(ActivitySplash).Name;
         protected override void OnCreate(Bundle savedInstanceState)
