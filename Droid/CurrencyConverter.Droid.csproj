@@ -158,9 +158,9 @@
     <Compile Include="Activities\ActivityList.cs" />
     <Compile Include="Activities\ActivitySplash.cs" />
     <Compile Include="CustomView\CustomMainView.cs" />
+    <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="FlagList\CurrencyAdapter.cs" />
     <Compile Include="FlagList\FlagsDictionary.cs" />
-    <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

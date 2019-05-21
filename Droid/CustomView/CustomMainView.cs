@@ -25,24 +25,31 @@ namespace CurrencyConverter.Droid.CustomView
         private EditText _leftValue;
         private EditText _rightValue;
 
+        public event Action LeftButton;
+
         public CustomMainView(Context context) : base(context)
         {
+            _context = context;
         }
 
         public CustomMainView(Context context, IAttributeSet attrs) : base(context, attrs)
         {
+            _context = context;
         }
 
         public CustomMainView(Context context, IAttributeSet attrs, int defStyleAttr) : base(context, attrs, defStyleAttr)
         {
+            _context = context;
         }
 
         public CustomMainView(Context context, IAttributeSet attrs, int defStyleAttr, int defStyleRes) : base(context, attrs, defStyleAttr, defStyleRes)
         {
+            _context = context;
         }
 
         protected CustomMainView(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
+           
         }
 
         protected override void OnFinishInflate()
@@ -51,9 +58,13 @@ namespace CurrencyConverter.Droid.CustomView
             _inflater = LayoutInflater.From(Context);
             _inflater.Inflate(Resource.Layout.Main, this, true);
             InitViewComponents();
+
+        
         }
 
-        private void InitViewComponents()
+        
+
+        public void InitViewComponents()
         {
             _leftButton = FindViewById<Button>(Resource.Id.left_button);
             _rightButton = FindViewById<Button>(Resource.Id.right_button);

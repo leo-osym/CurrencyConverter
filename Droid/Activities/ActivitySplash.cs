@@ -12,6 +12,7 @@ using Android.Support.V7.App;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using CurrencyConverter.Droid.FlagList;
 
 namespace CurrencyConverter.Droid.Activities
 {
@@ -24,7 +25,7 @@ namespace CurrencyConverter.Droid.Activities
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.layout_splash_screen);
-
+            FlagsDictionary.InitDictionary();
 
 
         }
