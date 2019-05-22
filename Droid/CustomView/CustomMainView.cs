@@ -22,8 +22,8 @@ namespace CurrencyConverter.Droid.CustomView
     {
         private LayoutInflater _inflater;
         private Context _context;
-        private Button _leftButton;
-        private Button _rightButton;
+        private RelativeLayout _leftLayout;
+        private RelativeLayout _rightLayout;
         private Button _switch;
         private EditText _leftValue;
         private EditText _rightValue;
@@ -69,9 +69,7 @@ namespace CurrencyConverter.Droid.CustomView
             //var draw = ContextCompat.GetDrawable(_context, Resource.Mipmap.au);
             //_leftButton.SetCompoundDrawablesWithIntrinsicBounds(draw, null, null, null);
           
-            _leftButton.SetCompoundDrawablesWithIntrinsicBounds(Resource.Mipmap.au, 0, 0, 0);
-            _leftButton.SetTextColor(Color.Black);
-            _leftButton.Text="Hello";
+            
 
 
         }
@@ -80,8 +78,8 @@ namespace CurrencyConverter.Droid.CustomView
 
         public void InitViewComponents()
         {
-            _leftButton = FindViewById<Button>(Resource.Id.left_button);
-            _rightButton = FindViewById<Button>(Resource.Id.right_button);
+            _leftLayout = FindViewById<RelativeLayout>(Resource.Id.left_layout);
+            _rightLayout = FindViewById<RelativeLayout>(Resource.Id.right_layout);
             _switch = FindViewById<Button>(Resource.Id.switch_button);
             _leftValue = FindViewById<EditText>(Resource.Id.left_edit_text);
             _rightValue = FindViewById<EditText>(Resource.Id.right_edit_text);

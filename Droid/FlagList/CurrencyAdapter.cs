@@ -18,15 +18,29 @@ namespace CurrencyConverter.Droid.FlagList
         public ImageView ImageView { get; set; }
         public TextView FlagsDescriprion { get; set; }
         public TextView FlagsId { get; set; }
+        public LinearLayout CardsId { get; set; }
+
         public RecyclerViewHolder(View itemView) : base(itemView)
         {
+            CardsId = itemView.FindViewById<LinearLayout>(Resource.Id.cards_id);
             ImageView = itemView.FindViewById<ImageView>(Resource.Id.card_flags);
             FlagsId = itemView.FindViewById<TextView>(Resource.Id.flags_id);
             FlagsDescriprion = itemView.FindViewById<TextView>(Resource.Id.flags_description);
+            itemView.Click += delegate
+            {
+                var intent = new Intent(itemView.Context, typeof(MainActivity));
+                itemView.Context.StartActivity(intent);
 
+            };
+            
+
+            
 
         }
-
+       
+             
+        
+       
     }
     class CurrencyAdapter : RecyclerView.Adapter
     {
@@ -35,6 +49,7 @@ namespace CurrencyConverter.Droid.FlagList
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
+
             RecyclerViewHolder viewHolder = holder as RecyclerViewHolder;
             var keysList = FlagsDictionary.FlagDictionary.Keys.ToList();
             var key = keysList[position];
@@ -44,6 +59,8 @@ namespace CurrencyConverter.Droid.FlagList
             viewHolder.ImageView.SetImageResource(flag);
             viewHolder.FlagsId.Text = key;
             viewHolder.FlagsDescriprion.Text = "  —  " + desc;
+
+           
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
