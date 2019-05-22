@@ -20,7 +20,15 @@ namespace CurrencyConverter.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel labelCell { get; set; }
+        UIKit.UILabel labelCellDesc { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel labelCellXXX { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel labelDefis { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
@@ -29,9 +37,19 @@ namespace CurrencyConverter.iOS
                 imageCell = null;
             }
 
-            if (labelCell != null) {
-                labelCell.Dispose ();
-                labelCell = null;
+            if (labelCellDesc != null) {
+                labelCellDesc.Dispose ();
+                labelCellDesc = null;
+            }
+
+            if (labelCellXXX != null) {
+                labelCellXXX.Dispose ();
+                labelCellXXX = null;
+            }
+
+            if (labelDefis != null) {
+                labelDefis.Dispose ();
+                labelDefis = null;
             }
         }
     }

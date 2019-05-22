@@ -6,22 +6,46 @@ namespace CurrencyConverter.iOS
 {
     public partial class TableViewCustomCell : UITableViewCell
     {
+
+        public string LabelCellTextAbriveature
+        {
+            get => labelCellXXX.Text;
+            set => labelCellXXX.Text = value;
+        }
+        public string LabelCellTextDescription
+        {
+            get => labelCellDesc.Text;
+            set => labelCellDesc.Text = value;
+        }
+
+        public UIImage ImageViewCell
+        {
+            get => imageCell.Image;
+            set => imageCell.Image = value;
+        }
+
+
         public TableViewCustomCell (IntPtr handle) : base (handle)
         {
 
         }
 
-        public TableViewCustomCell(NSString cellId, string friendName, UIImage friendPhoto) : base(UITableViewCellStyle.Default, cellId)
+        public TableViewCustomCell(NSString cellId, string description, string abriveature, UIImage flagPhoto) : base(UITableViewCellStyle.Default, cellId)
         {
-            labelCell.Text = friendName;
-            imageCell.Image = friendPhoto;
+            LabelCellTextDescription = description;
+            LabelCellTextAbriveature = abriveature;
+            ImageViewCell = flagPhoto;
         }
 
         //This methods is to update cell data when reuse:
-        public void UpdateCellData(string friendName, UIImage friendPhoto)
+        public void UpdateCellData(string description, string abriveature, UIImage flagFoto)
         {
-            labelCell.Text = friendName;
-            imageCell.Image = friendPhoto;
+
+            LabelCellTextDescription = description;
+           /// imageCell.Image = flagFoto;
+            LabelCellTextAbriveature = abriveature;
+            
+
         }
 
     }

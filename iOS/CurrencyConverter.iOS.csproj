@@ -114,6 +114,26 @@
     <ImageAsset Include="Resources\Assets.xcassets\us.imageset\us.png" />
     <ImageAsset Include="Resources\Assets.xcassets\currency_splash.imageset\Contents.json" />
     <ImageAsset Include="Resources\Assets.xcassets\currency_splash.imageset\currency_splash.jpg" />
+    <ImageAsset Include="Resources\Assets.xcassets\au.imageset\au%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\au.imageset\au%403x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\ca.imageset\ca%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\ca.imageset\ca%403x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\dk.imageset\dk%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\dk.imageset\dk%403x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\eu.imageset\eu%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\eu.imageset\eu%403x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\gb.imageset\gb%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\gb.imageset\gb%403x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\jp.imageset\jp%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\jp.imageset\jp%403x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\nz.imageset\nz%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\nz.imageset\nz%403x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\ru.imageset\ru%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\ru.imageset\ru%403x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\ua.imageset\ua%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\ua.imageset\ua%403x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\us.imageset\us%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\us.imageset\us%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -147,6 +167,10 @@
       <DependentUpon>TableViewCustomCell.cs</DependentUpon>
     </Compile>
     <Compile Include="FlagsData.cs" />
+    <Compile Include="CustomTVCell.cs" />
+    <Compile Include="CustomTVCell.designer.cs">
+      <DependentUpon>CustomTVCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
