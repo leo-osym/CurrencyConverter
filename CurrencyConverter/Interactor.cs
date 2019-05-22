@@ -21,6 +21,7 @@ namespace CurrencyConverter
             _requester = requester;
             timer = new Timer();
             timer.IsRunning = true;
+            timer.RunTimer(10000);
             timer.onTimeReached += () => timerIsOver = true;
         }
 
@@ -36,6 +37,7 @@ namespace CurrencyConverter
                 timerIsOver = false;
                 LastTimeUpdated = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
             }
+          
 
             if (lastCourse >= 0)
             {

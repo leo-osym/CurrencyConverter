@@ -6,14 +6,14 @@ using Newtonsoft.Json.Linq;
 
 namespace CurrencyConverter
 {
-    class Requester : IRequester
+    public class Requester : IRequester
     {
         public async Task<decimal> RequestAsync(string currencyCode1, string currencyCode2)
         {
             string url = $"https://free.currconv.com/api/v7/convert?q={currencyCode1}_{currencyCode2}&compact=ultra&apiKey=f731dbae8f77ddac4d07";
 
-            WebRequest request = WebRequest.Create(url);
-            WebResponse response = await request.GetResponseAsync();
+
+            var response = await WebRequest.Create(url).GetResponseAsync().ConfigureAwait(false);
 
             using (StreamReader stream = new StreamReader(response.GetResponseStream()))
             {
@@ -21,11 +21,33 @@ namespace CurrencyConverter
                 if ((str = stream.ReadToEnd()) != null)
                 {
                     JObject o = JObject.Parse(str);
-                    return Convert.ToDecimal(o[$"{currencyCode1}_{currencyCode2}"]);
+                    var s = o[$"{currencyCode1}_{currencyCode2}"].ToString();
+
+                    return Convert.ToDecimal(s);
                 }
             }
             return -1;
         }
 
+
+        //public async Task<decimal> RequestAsync(string currencyCode1, string currencyCode2)
+        //{
+        //    using (var client = new System.Net.Http.HttpClient())
+        //    {
+        //        string url = $"https://free.currconv.com/api/v7/convert?q={currencyCode1}_{currencyCode2}&compact=ultra&apiKey=f731dbae8f77ddac4d07";
+
+        //        client.BaseAddress = new Uri(url);
+        //        var result = await client.GetAsync("/myEndpoint");
+        //        if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
+        //        {
+        //            //ok to process
+        //            var str = await result.Content.ReadAsStringAsync();
+                                                              
+        //            JObject o = JObject.Parse(str);
+        //            return Convert.ToDecimal(o[$"{currencyCode1}_{currencyCode2}"]);                                          
+        //        }
+        //    }
+        //    return -1M;
+        //}
     }
 }
