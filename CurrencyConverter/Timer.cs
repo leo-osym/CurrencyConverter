@@ -8,7 +8,8 @@ namespace CurrencyConverter
 {
     public class Timer
     {
-        public bool IsRunning = false;
+        public bool isRunning = false;
+        public bool reload = false;
         public delegate void TimerDelegate();
         public event TimerDelegate onTimeReached;
 
@@ -16,17 +17,25 @@ namespace CurrencyConverter
         {
             for (int t = 0; t < period + 1;)
             {
-                if (IsRunning)
+                if (isRunning)
                 {
                     await Task.Delay(500);
                     t += 500;
                 }
-                if (IsRunning && t == period)
+                if (isRunning && t == period)
                 {
-                    onTimeReached();
+                    if (!reload)
+                    {
+                        onTimeReached();
+                        t = 0;
+                    }
+                }
+                if (reload)
+                {
+                    reload = false;
                     t = 0;
                 }
-                if (!IsRunning)
+                if (!isRunning)
                 {
                     break;
                 }

@@ -11,6 +11,10 @@ namespace CurrencyConverter.Droid
         IInteractor interactor;
         IRequester requester;
 
+        string code1 = "USD";
+        string code2 = "UAH";
+
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -27,8 +31,11 @@ namespace CurrencyConverter.Droid
             requester = new Requester();
             interactor = new Interactor(requester);
 
+            button.Click += Button_Click;
 
-            editText.TextChanged += async (s, e) => {
+
+            editText.TextChanged += async (s, e) =>
+            {
                 //textView.Text = requester.RequestAsync("USD", "UAH").Result.ToString();
 
                 decimal value;
@@ -41,12 +48,19 @@ namespace CurrencyConverter.Droid
 
                     textView.Text = temp.ToString();
                 }
-            };        
+            };
+        }
+
+        private void Button_Click(object sender, System.EventArgs e)
+        {
+            var temp = code1;
+            code1 = code2;
+            code2 = temp;
         }
 
         public async Task<decimal> TestMethod(decimal value)
         {
-            return await interactor.GetCourse("USD", "UAH", value);
+            return await interactor.GetCourse(code1, code2, value);
 
         }
     }

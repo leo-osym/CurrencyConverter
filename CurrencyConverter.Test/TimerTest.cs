@@ -15,14 +15,14 @@ namespace CurrencyConverter.Test
         public void SetUp()
         {
             timer = new Timer();
-            timer.IsRunning = true;
+            timer.isRunning = true;
         }
 
         [Test]
         public void TestGetCurrentFloor()
         {
             timer = new Timer();
-            timer.IsRunning = true;
+            timer.isRunning = true;
             timer.onTimeReached += TimerHandler;
             timer.RunTimer(5000);
 

@@ -20,7 +20,7 @@ namespace CurrencyConverter
         {
             _requester = requester;
             timer = new Timer();
-            timer.IsRunning = true;
+            timer.isRunning = true;
             timer.RunTimer(10000);
             timer.onTimeReached += () => timerIsOver = true;
         }
@@ -35,9 +35,10 @@ namespace CurrencyConverter
 
                 lastCourse = await _requester.RequestAsync(currencyCode1, currencyCode2);
                 timerIsOver = false;
+                timer.reload = true;
                 LastTimeUpdated = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
             }
-          
+               
 
             if (lastCourse >= 0)
             {
