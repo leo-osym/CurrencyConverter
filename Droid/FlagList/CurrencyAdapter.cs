@@ -26,12 +26,6 @@ namespace CurrencyConverter.Droid.FlagList
             ImageView = itemView.FindViewById<ImageView>(Resource.Id.card_flags);
             FlagsId = itemView.FindViewById<TextView>(Resource.Id.flags_id);
             FlagsDescriprion = itemView.FindViewById<TextView>(Resource.Id.flags_description);
-            itemView.Click += delegate
-            {
-                var intent = new Intent(itemView.Context, typeof(MainActivity));
-                itemView.Context.StartActivity(intent);
-
-            };
             
 
             
@@ -46,6 +40,14 @@ namespace CurrencyConverter.Droid.FlagList
     {
 
         public override int ItemCount {get { return FlagsDictionary.FlagDictionary.Count; } }
+        private Context context;
+        private bool buttonSide;
+
+        public CurrencyAdapter(Context context,bool buttonSide)
+        {
+            this.context = context;
+            this.buttonSide = buttonSide;
+        }
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
@@ -59,8 +61,19 @@ namespace CurrencyConverter.Droid.FlagList
             viewHolder.ImageView.SetImageResource(flag);
             viewHolder.FlagsId.Text = key;
             viewHolder.FlagsDescriprion.Text = "  —  " + desc;
+            holder.ItemView.Click += delegate
+            {
+                var intent = new Intent(context, typeof(MainActivity));
+                intent.PutExtra("id", key);
+                intent.PutExtra("image", flag);
+                intent.PutExtra("buttonSide", buttonSide);
+                context.StartActivity(intent);
+                
+            };
 
-           
+
+
+
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
