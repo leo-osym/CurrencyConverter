@@ -21,6 +21,7 @@ namespace CurrencyConverter.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
+            var myUIViewController = (this.NavigationController.ViewControllers[0] as MainViewController).operaitionIsDone = false;
         }
 
         public override void DidReceiveMemoryWarning()
@@ -41,6 +42,7 @@ namespace CurrencyConverter.iOS
             var myUIViewController = this.NavigationController.ViewControllers[0] as MainViewController;
             myUIViewController._segue = listItem[indexPath.Row];
             myUIViewController.chosenButton = chosenButton;
+            myUIViewController.operaitionIsDone = true;
             NavigationController.PopViewController(true);
             tableView.DeselectRow(indexPath, true);
         }
