@@ -90,50 +90,138 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\Contents.json" />
-    <ImageAsset Include="Resources\Assets.xcassets\au.imageset\Contents.json" />
-    <ImageAsset Include="Resources\Assets.xcassets\au.imageset\au.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\ca.imageset\Contents.json" />
-    <ImageAsset Include="Resources\Assets.xcassets\ca.imageset\ca.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\dk.imageset\Contents.json" />
-    <ImageAsset Include="Resources\Assets.xcassets\dk.imageset\dk.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\eu.imageset\Contents.json" />
-    <ImageAsset Include="Resources\Assets.xcassets\eu.imageset\eu.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\gb.imageset\Contents.json" />
-    <ImageAsset Include="Resources\Assets.xcassets\gb.imageset\gb.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\jp.imageset\Contents.json" />
-    <ImageAsset Include="Resources\Assets.xcassets\jp.imageset\jp.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\nz.imageset\Contents.json" />
-    <ImageAsset Include="Resources\Assets.xcassets\nz.imageset\nz.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\ru.imageset\Contents.json" />
-    <ImageAsset Include="Resources\Assets.xcassets\ru.imageset\ru.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\ua.imageset\Contents.json" />
-    <ImageAsset Include="Resources\Assets.xcassets\ua.imageset\ua.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\us.imageset\Contents.json" />
-    <ImageAsset Include="Resources\Assets.xcassets\us.imageset\us.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\currency_splash.imageset\Contents.json" />
-    <ImageAsset Include="Resources\Assets.xcassets\currency_splash.imageset\currency_splash.jpg" />
-    <ImageAsset Include="Resources\Assets.xcassets\au.imageset\au%402x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\au.imageset\au%403x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\ca.imageset\ca%402x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\ca.imageset\ca%403x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\dk.imageset\dk%402x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\dk.imageset\dk%403x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\eu.imageset\eu%402x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\eu.imageset\eu%403x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\gb.imageset\gb%402x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\gb.imageset\gb%403x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\jp.imageset\jp%402x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\jp.imageset\jp%403x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\nz.imageset\nz%402x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\nz.imageset\nz%403x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\ru.imageset\ru%402x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\ru.imageset\ru%403x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\ua.imageset\ua%402x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\ua.imageset\ua%403x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\us.imageset\us%402x.png" />
-    <ImageAsset Include="Resources\Assets.xcassets\us.imageset\us%403x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\au.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\au.imageset\au.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\ca.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\ca.imageset\ca.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\dk.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\dk.imageset\dk.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\eu.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\eu.imageset\eu.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\gb.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\gb.imageset\gb.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\jp.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\jp.imageset\jp.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\nz.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\nz.imageset\nz.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\ru.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\ru.imageset\ru.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\ua.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\ua.imageset\ua.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\us.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\us.imageset\us.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\currency_splash.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\currency_splash.imageset\currency_splash.jpg">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\au.imageset\au%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\au.imageset\au%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\ca.imageset\ca%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\ca.imageset\ca%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\dk.imageset\dk%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\dk.imageset\dk%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\eu.imageset\eu%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\eu.imageset\eu%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\gb.imageset\gb%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\gb.imageset\gb%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\jp.imageset\jp%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\jp.imageset\jp%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\nz.imageset\nz%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\nz.imageset\nz%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\ru.imageset\ru%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\ru.imageset\ru%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\ua.imageset\ua%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\ua.imageset\ua%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\us.imageset\us%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\us.imageset\us%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />

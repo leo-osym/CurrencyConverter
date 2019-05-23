@@ -10,69 +10,87 @@
     <TextView
             android:text="TextView"
             android:id="@+id/update_data"
+            android:background="#c45e66"
             android:textAlignment="center"
+            android:gravity ="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="40dp"/>
 
-    <LinearLayout
+  <LinearLayout
             android:id="@+id/top_layout"
             android:layout_marginTop="100dp"
             android:layout_below="@+id/update_data"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:weightSum="2">
 
         <RelativeLayout
                 android:id="@+id/left_layout"
                 android:layout_gravity="right"
-                android:layout_width="match_parent"
+                android:background="#0a85ff"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="15dp"
                 android:layout_weight="1">
 
-           <ImageView
+            <ImageView
                     android:id="@+id/left_flag"
+                    android:src="@drawable/au"
                     android:layout_width="50dp"
-                    android:layout_height="20dp"
-			        app:srcCompat="@drawable/au"/>
-			
-			<TextView
+                    android:layout_height="20dp"/>
+
+            <TextView
                     android:id="@+id/left_key"
-                    android:text="Chose Flags"
-                    android:layout_width="wrap_content"
+                    android:text="USD"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-				    android:textColor="#000000"
+                    android:textColor="#000000"
                     android:layout_toRightOf="@id/left_flag"
                     android:layout_marginLeft="10dp"
                     android:layout_centerInParent="true"/>
 
-            
+
         </RelativeLayout>
+
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="match_parent">
+            <Button android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"/>
+        </LinearLayout>
 
         <RelativeLayout
                 android:id="@+id/right_layout"
                 android:layout_weight="1"
+                 android:background="#0a85ff"
                 android:layout_gravity="right"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
+                android:layout_marginRight="15dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp">
 
             <ImageView
-                    android:id="@+id/right_flag"
+                    android:id="@+id/right_flag"               
                     android:layout_width="50dp"
                     android:layout_height="20dp"
                     android:layout_alignParentRight="true"
-                    app:srcCompat="@drawable/au"
+                    android:src="@drawable/ca"
+       
                     android:layout_centerInParent="true"/>
             <TextView
                     android:id="@+id/right_key"
-                    android:text="Chose Flags"
+                    android:text="UAH"
+                    android:gravity="right"
+                    
+                    
                     android:layout_marginRight="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-				    android:textColor="#000000"
+                    android:textColor="#000000"
                     android:layout_toLeftOf="@id/right_flag"
                     android:layout_centerInParent="true"/>
 
@@ -99,12 +117,16 @@
                 android:background="#FFFFFF"
                 android:ems="10"
                 android:layout_weight="1"/>
-        <Button
+        <Button               
                 android:id="@+id/switch_button"
+             
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-			    android:text="switch"
-			    android:textColor="#000000"
+                
+			    android:background="@drawable/exchangeButton"
+			  
+                
+            
                 android:layout_gravity="center"
 			    android:clickable="false"
                 android:layout_marginRight="15dp"
