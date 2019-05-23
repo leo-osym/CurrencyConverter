@@ -50,6 +50,10 @@ namespace CurrencyConverter.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField textEditRight { get; set; }
 
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel TimeLabel { get; set; }
+
         [Action ("BtnReverse_TouchUpInside:")]
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void BtnReverse_TouchUpInside (UIKit.UIButton sender);
@@ -99,6 +103,11 @@ namespace CurrencyConverter.iOS
             if (textEditRight != null) {
                 textEditRight.Dispose ();
                 textEditRight = null;
+            }
+
+            if (TimeLabel != null) {
+                TimeLabel.Dispose ();
+                TimeLabel = null;
             }
         }
     }

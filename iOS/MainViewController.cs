@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Threading.Tasks;
 using UIKit;
 
 namespace CurrencyConverter.iOS
@@ -7,11 +7,13 @@ namespace CurrencyConverter.iOS
     public partial class MainViewController : UIViewController
     {
 
-        public string _segue;
-        public  int flag = 3;
+        public string currencyKey;
+        public ChosenButton chosenButton;
+        public bool operationIsDone = false;
+        Requester requester;
+        Interactor interactor;
+        FlagsData data = new FlagsData();
        
-       
-
         public MainViewController() : base("MainViewController", null)
         {
         }
@@ -24,89 +26,82 @@ namespace CurrencyConverter.iOS
         {
             base.ViewDidLoad();
 
-
-            // Perform any additional setup after loading the view, typically from a nib.
-
-            //  TapGestureLeft();
-            //  TapGestureRight();
-            textEditLeft.EditingChanged += (sender, e) => {
-
-               
+            requester = new Requester();
+            interactor = new Interactor(requester);
+           
+            textEditLeft.EditingChanged += async (sender, e) => {
+                await SetDataToFields(buttonLabelLeft, buttonLabelRight, textEditLeft, textEditRight);
             };
-            textEditRight.EditingChanged += (sender, e) => {
-
-               
+            textEditRight.EditingChanged += async (sender, e) => {
+                //if (String.IsNullOrEmpty(textEditRight.Text)) textEditLeft.Text = "0.00";
+                await SetDataToFields(buttonLabelRight, buttonLabelLeft, textEditRight, textEditLeft);
             };
 
             btnChangeCurrencyLeft.TouchUpInside += (sender, e) => {
-                //var okAlertController = UIAlertController.Create("Title", "The message", UIAlertControllerStyle.Alert);
-                //okAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-                //PresentViewController(okAlertController, true, null);
-                flag = 1;
-                TapSelectViews();
-
-                        };
+                chosenButton = ChosenButton.LeftButton;
+                base.PerformSegue("toTableView", this);
+            };
             btnChangeCurrentRight.TouchUpInside += (sender, e) => {
-               
-                flag = 2;
-                TapSelectViews();
-
+                chosenButton = ChosenButton.RightButton;
+                base.PerformSegue("toTableView", this);
             };
 
         }
 
+        private async Task SetDataToFields(UILabel label1, UILabel label2, UITextField textField1, UITextField textField2)
+        {
+            decimal currencyValueFromField = 1;
+            decimal.TryParse(textField1.Text, out currencyValueFromField);
+            var receivedCurrencyRate = await interactor.GetCourse(label1.Text, label2.Text, currencyValueFromField);
+            if(receivedCurrencyRate != -1) 
+            {
+                textField2.Text = receivedCurrencyRate != 0 ? String.Format("{0:0.00}", receivedCurrencyRate) : "";
+                TimeLabel.Text = interactor.LastTimeUpdated;
+            }
+            else 
+            {
+                textField2.Text = "";
+                TimeLabel.Text = "Connection error!";
+            }
+        }
 
 
-        public override void ViewWillAppear(bool animated)
+        public override async void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            if (_segue != null)
-                if (flag == 1)
+            await SetDataToFields(buttonLabelLeft, buttonLabelRight, textEditLeft, textEditRight);
+            if (currencyKey != null && operationIsDone)
+            {
+                if (chosenButton == ChosenButton.LeftButton)
                 {
-                    buttonLabelLeft.Text = _segue;
-                    leftButtonImage.Image = UIImage.FromBundle(FlagsData.FlagDictionary[_segue].flagImage); 
+                    //await SetDataToFields(buttonLabelLeft, buttonLabelRight, textEditLeft, textEditRight);
+                    buttonLabelLeft.Text = currencyKey;
+                    leftButtonImage.Image = UIImage.FromBundle(data.FlagDictionary[currencyKey].flagImage);
 
-                } if (flag == 2) { 
-                buttonLabelRight.Text = _segue;
-                rightButtonImage.Image = UIImage.FromBundle(FlagsData.FlagDictionary[_segue].flagImage);
+                }
+                else if (chosenButton == ChosenButton.RightButton)
+                {
+                    //await SetDataToFields(buttonLabelRight, buttonLabelLeft, textEditRight, textEditLeft);
+                    buttonLabelRight.Text = currencyKey;
+                    rightButtonImage.Image = UIImage.FromBundle(data.FlagDictionary[currencyKey].flagImage);
+                }
             }
         }
 
         partial void BtnReverse_TouchUpInside(UIButton sender)
         {
+            double temp = 0;
+            double.TryParse(textEditLeft.Text, out temp);
+            textEditLeft.Text = temp != 0 ? String.Format("{0:0.00}", temp) : "";
+
             (buttonLabelLeft.Text, buttonLabelRight.Text) = (buttonLabelRight.Text, buttonLabelLeft.Text);
             (rightButtonImage.Image, leftButtonImage.Image) = (leftButtonImage.Image,rightButtonImage.Image);
             (textEditLeft.Text, textEditRight.Text) = (textEditRight.Text, textEditLeft.Text);
         }
 
-        public void TapSelectViews () {
-            base.PerformSegue("toTableView", this);
-        }
-
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
-            // Release any cached data, images, etc that aren't in use.
-        }
-
-      
-
-
-        public void TapGestureLeft () {
-
-            UITapGestureRecognizer gestureL = new UITapGestureRecognizer();
-           
-            gestureL.AddTarget(() => TapSelectViews());
-         
-            btnChangeCurrencyLeft.AddGestureRecognizer(gestureL);
-         
-        }
-        public void TapGestureRight()
-        {
-
-            UITapGestureRecognizer gestureR = new UITapGestureRecognizer();
-            gestureR.AddTarget(() => TapSelectViews());
-            btnChangeCurrentRight.AddGestureRecognizer(gestureR);
         }
 
         public override void PrepareForSegue(UIStoryboardSegue segue,
@@ -115,13 +110,13 @@ namespace CurrencyConverter.iOS
 
             if (segue.Identifier == "toTableView")
             {
-
                 var callTVController = segue.DestinationViewController
                                               as TableView;
-                callTVController.tableFlag = flag;
-
+                callTVController.chosenButton = chosenButton;
             }
         }
     }
+
+    public enum ChosenButton {LeftButton, RightButton};
 }
 

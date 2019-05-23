@@ -10,21 +10,26 @@ namespace CurrencyConverter
     {
         public async Task<decimal> RequestAsync(string currencyCode1, string currencyCode2)
         {
-            string url = $"https://free.currconv.com/api/v7/convert?q={currencyCode1}_{currencyCode2}&compact=ultra&apiKey=f731dbae8f77ddac4d07";
+            string url = $"https://free.currconv.com/api/v7/convert?q={currencyCode1}_{currencyCode2}&compact=ultra&apiKey=414b804213365ca9925e";
 
-
-            var response = await WebRequest.Create(url).GetResponseAsync().ConfigureAwait(false);
-
-            using (StreamReader stream = new StreamReader(response.GetResponseStream()))
+            try //System.Net.WebException
             {
-                string str;
-                if ((str = stream.ReadToEnd()) != null)
+                var response = await WebRequest.Create(url).GetResponseAsync().ConfigureAwait(false);
+                using (StreamReader stream = new StreamReader(response.GetResponseStream()))
                 {
-                    JObject o = JObject.Parse(str);
-                    var s = o[$"{currencyCode1}_{currencyCode2}"].ToString();
+                        string str;
+                        if ((str = stream.ReadToEnd()) != null)
+                        {
+                            JObject o = JObject.Parse(str);
+                            var s = o[$"{currencyCode1}_{currencyCode2}"].ToString();
 
-                    return Convert.ToDecimal(s);
+                            return Convert.ToDecimal(s);
+                        }
                 }
+            }
+            catch (WebException exception)
+            {
+                return -1;
             }
             return -1;
         }

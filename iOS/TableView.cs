@@ -7,9 +7,10 @@ namespace CurrencyConverter.iOS
 {
     public partial class TableView : UITableViewController, IUITableViewDataSource
     {
-        List<String> listItem =new List<string>(FlagsData.FlagDictionary.Keys);
-        public int tableFlag;
-       
+        FlagsData data = new FlagsData();
+        List<String> listItem;
+
+        public ChosenButton chosenButton;
 
         public TableView() : base("TableView", null)
         {
@@ -21,35 +22,29 @@ namespace CurrencyConverter.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            // Perform any additional setup after loading the view, typically from a nib.
+            listItem = new List<string>(data.FlagDictionary.Keys);
+            (NavigationController.ViewControllers[0] as MainViewController).operationIsDone = false;
         }
 
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
-            // Release any cached data, images, etc that aren't in use.
         }
 
 
 
         public override nint RowsInSection(UITableView tableView, nint section)
         {
-            return FlagsData.FlagDictionary.Count;
+            return data.FlagDictionary.Count;
         }
 
 
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
-            // UIAlertController okAlertController = UIAlertController.Create("Row Selected", listItem[indexPath.Row], UIAlertControllerStyle.Alert);
-            //okAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-            //this.PresentViewController(okAlertController, true, null);
-
-            // PrepareForSegue(PrepareForSegue, this);
-            //MainViewController._segue = listItem[indexPath.Row];
-
             var myUIViewController = this.NavigationController.ViewControllers[0] as MainViewController;
-            myUIViewController._segue = listItem[indexPath.Row];
-            myUIViewController.flag = tableFlag;
+            myUIViewController.currencyKey = listItem[indexPath.Row];
+            myUIViewController.chosenButton = chosenButton;
+            myUIViewController.operationIsDone = true;
             NavigationController.PopViewController(true);
             tableView.DeselectRow(indexPath, true);
         }
@@ -61,7 +56,7 @@ namespace CurrencyConverter.iOS
             var cell = tableView.DequeueReusableCell(cellIdentifier) as TableViewCustomCell;
             string item = listItem[indexPath.Row];
 
-            var setImage = FlagsData.FlagDictionary[item];
+            var setImage = data.FlagDictionary[item];
             cell.ImageViewCell = UIImage.FromBundle(setImage.flagImage);
             cell.LabelCellTextAbriveature = item;
             cell.LabelCellTextDescription = setImage.description;
@@ -72,38 +67,13 @@ namespace CurrencyConverter.iOS
 
         string cellIdentifier = "FlagsCell";
 
-
-        //override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-        //{
-        //    if (segue.identifier == "WebViewController")
-        //    {
-        //        let vc = segue.destination as!WebViewController
-        //        vc.segue_in = textViewField.text
-        //    }
-        //}
-        //override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //if (segue.identifier == "WebViewController") {
-        //    let vc = segue.destination as! WebViewController
-        //    vc.segue_in = textViewField.text
-        //}
-   // }
-
         public override void PrepareForSegue(UIStoryboardSegue segue,
             Foundation.NSObject sender)
         {
 
             if (segue.Identifier == "toTableView")
             {
-
-                //  base.PrepareForSegue(segue, sender);
-
-                var callMVController = segue.DestinationViewController
-                                              as MainViewController;
-              //  callMVController._segue = sender.
-                // if (callHistoryController != null)
-                // {
-                //     callHistoryController.PhoneNumbers = PhoneNumbers;
-                //  }
+                var callMVController = segue.DestinationViewController as MainViewController;
             }
         }
 
