@@ -8,12 +8,10 @@ namespace CurrencyConverter.iOS
     {
 
         public string _segue;
-        public  int flag = 3;
+        public ChosenButton chosenButton;
         Requester requester;
         Interactor interactor;
        
-       
-
         public MainViewController() : base("MainViewController", null)
         {
         }
@@ -30,25 +28,21 @@ namespace CurrencyConverter.iOS
             interactor = new Interactor(requester);
 
             textEditLeft.EditingChanged += async (sender, e) => {
+                //if (String.IsNullOrEmpty(textEditLeft.Text)) textEditRight.Text = "1";
                 await SetDataToFields(buttonLabelLeft, buttonLabelRight, textEditLeft, textEditRight);
             };
             textEditRight.EditingChanged += async (sender, e) => {
+                //if (String.IsNullOrEmpty(textEditRight.Text)) textEditLeft.Text = "1";
                 await SetDataToFields(buttonLabelRight, buttonLabelLeft, textEditRight, textEditLeft);
             };
 
             btnChangeCurrencyLeft.TouchUpInside += (sender, e) => {
-                //var okAlertController = UIAlertController.Create("Title", "The message", UIAlertControllerStyle.Alert);
-                //okAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-                //PresentViewController(okAlertController, true, null);
-                flag = 1;
-                TapSelectViews();
-
-                        };
+                chosenButton = ChosenButton.LeftButton;
+                base.PerformSegue("toTableView", this);
+            };
             btnChangeCurrentRight.TouchUpInside += (sender, e) => {
-               
-                flag = 2;
-                TapSelectViews();
-
+                chosenButton = ChosenButton.RightButton;
+                base.PerformSegue("toTableView", this);
             };
 
         }
@@ -58,8 +52,16 @@ namespace CurrencyConverter.iOS
             decimal value = 1;
             decimal.TryParse(tfield1.Text, out value);
             var temp = await interactor.GetCourse(label1.Text, label2.Text, value);
-            tfield2.Text = String.Format("{0:0.00}", temp);
-            TimeLabel.Text = interactor.LastTimeUpdated;
+            if(temp != -1) 
+            {
+                tfield2.Text = String.Format("{0:0.00}", temp);
+                TimeLabel.Text = interactor.LastTimeUpdated;
+            }
+            else 
+            {
+                tfield2.Text = "0.00";
+                TimeLabel.Text = "Connection error!";
+            }
         }
 
 
@@ -68,15 +70,17 @@ namespace CurrencyConverter.iOS
             base.ViewWillAppear(animated);
             await SetDataToFields(buttonLabelLeft, buttonLabelRight, textEditLeft, textEditRight);
             if (_segue != null)
-                if (flag == 1)
+                if (chosenButton == ChosenButton.LeftButton)
                 {
                     buttonLabelLeft.Text = _segue;
                     leftButtonImage.Image = UIImage.FromBundle(FlagsData.FlagDictionary[_segue].flagImage); 
 
-                } if (flag == 2) { 
-                buttonLabelRight.Text = _segue;
-                rightButtonImage.Image = UIImage.FromBundle(FlagsData.FlagDictionary[_segue].flagImage);
-            }
+                } 
+                if (chosenButton == ChosenButton.RightButton) 
+                { 
+                    buttonLabelRight.Text = _segue;
+                    rightButtonImage.Image = UIImage.FromBundle(FlagsData.FlagDictionary[_segue].flagImage);
+                }
         }
 
         partial void BtnReverse_TouchUpInside(UIButton sender)
@@ -86,29 +90,9 @@ namespace CurrencyConverter.iOS
             (textEditLeft.Text, textEditRight.Text) = (textEditRight.Text, textEditLeft.Text);
         }
 
-        public void TapSelectViews () {
-            base.PerformSegue("toTableView", this);
-        }
-
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
-            // Release any cached data, images, etc that aren't in use.
-        }
-
-        public void TapGestureLeft () {
-
-            UITapGestureRecognizer gestureL = new UITapGestureRecognizer();
-            gestureL.AddTarget(() => TapSelectViews());
-            btnChangeCurrencyLeft.AddGestureRecognizer(gestureL);
-         
-        }
-
-        public void TapGestureRight()
-        {
-            UITapGestureRecognizer gestureR = new UITapGestureRecognizer();
-            gestureR.AddTarget(() => TapSelectViews());
-            btnChangeCurrentRight.AddGestureRecognizer(gestureR);
         }
 
         public override void PrepareForSegue(UIStoryboardSegue segue,
@@ -117,13 +101,12 @@ namespace CurrencyConverter.iOS
 
             if (segue.Identifier == "toTableView")
             {
-
                 var callTVController = segue.DestinationViewController
                                               as TableView;
-                callTVController.tableFlag = flag;
-
+                callTVController.chosenButton = chosenButton;
             }
         }
     }
+    public enum ChosenButton {LeftButton, RightButton};
 }
 
