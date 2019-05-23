@@ -20,22 +20,30 @@ namespace CurrencyConverter.iOS
         }
 
 
-        public override void ViewDidLoad()
+        public async override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
 
             // Perform any additional setup after loading the view, typically from a nib.
 
-            //  TapGestureLeft();
-            //  TapGestureRight();
-            textEditLeft.EditingChanged += (sender, e) => {
+            var requester = new Requester();
+            var interactor = new Interactor(requester);
+            decimal value = 1;
 
-               
+            decimal.TryParse(textEditLeft.Text, out value);
+            var temp = await interactor.GetCourse(buttonLabelLeft.Text, buttonLabelRight.Text, value);
+            textEditRight.Text = temp.ToString();
+
+            textEditLeft.EditingChanged += async (sender, e) => {
+                decimal.TryParse(textEditLeft.Text, out value);
+                temp = await interactor.GetCourse(buttonLabelLeft.Text, buttonLabelRight.Text, value);
+                textEditRight.Text = temp.ToString();
             };
-            textEditRight.EditingChanged += (sender, e) => {
-
-               
+            textEditRight.EditingChanged += async (sender, e) => {
+                decimal.TryParse(textEditRight.Text, out value);
+                temp = await interactor.GetCourse(buttonLabelRight.Text, buttonLabelLeft.Text, value);
+                textEditLeft.Text = temp.ToString();
             };
 
             btnChangeCurrencyLeft.TouchUpInside += (sender, e) => {

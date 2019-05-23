@@ -163,10 +163,6 @@
       <DependentUpon>TableViewCustomCell.cs</DependentUpon>
     </Compile>
     <Compile Include="FlagsData.cs" />
-    <Compile Include="CustomTVCell.cs" />
-    <Compile Include="CustomTVCell.designer.cs">
-      <DependentUpon>CustomTVCell.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
