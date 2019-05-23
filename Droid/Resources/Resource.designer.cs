@@ -1905,11 +1905,11 @@ namespace CurrencyConverter.Droid
 			// aapt resource value: 0x7f020061
 			public const int notification_icon_background = 2130837601;
 			
-			// aapt resource value: 0x7f020066
-			public const int notification_template_icon_bg = 2130837606;
+			// aapt resource value: 0x7f020068
+			public const int notification_template_icon_bg = 2130837608;
 			
-			// aapt resource value: 0x7f020067
-			public const int notification_template_icon_low_bg = 2130837607;
+			// aapt resource value: 0x7f020069
+			public const int notification_template_icon_low_bg = 2130837609;
 			
 			// aapt resource value: 0x7f020062
 			public const int notification_tile_bg = 2130837602;
@@ -1922,6 +1922,12 @@ namespace CurrencyConverter.Droid
 			
 			// aapt resource value: 0x7f020065
 			public const int tooltip_frame_light = 2130837605;
+			
+			// aapt resource value: 0x7f020066
+			public const int ua = 2130837606;
+			
+			// aapt resource value: 0x7f020067
+			public const int us = 2130837607;
 			
 			static Drawable()
 			{

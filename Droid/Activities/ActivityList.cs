@@ -22,6 +22,12 @@ namespace CurrencyConverter.Droid.Activities
         private RecyclerView.LayoutManager layoutManager;
         private RecyclerView.Adapter adapter;
         private bool buttonSide;
+
+        private string rightValue;
+        private string leftValue;
+        private string rightEditValue;
+        private string leftEditValue;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
 
@@ -31,6 +37,10 @@ namespace CurrencyConverter.Droid.Activities
             if (Intent.HasExtra("buttonSide"))
             {
                 buttonSide = Intent.GetBooleanExtra("buttonSide", true);
+                rightValue = Intent.GetStringExtra("rightEditText");
+                leftValue = Intent.GetStringExtra("leftEditText");
+                rightEditValue = Intent.GetStringExtra("rightEditValue");
+                leftEditValue = Intent.GetStringExtra("leftEditValue");
 
             }
 

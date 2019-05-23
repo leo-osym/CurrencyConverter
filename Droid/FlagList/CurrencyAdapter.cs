@@ -43,6 +43,7 @@ namespace CurrencyConverter.Droid.FlagList
         private Context context;
         private bool buttonSide;
 
+
         public CurrencyAdapter(Context context,bool buttonSide)
         {
             this.context = context;
@@ -67,6 +68,7 @@ namespace CurrencyConverter.Droid.FlagList
                 intent.PutExtra("id", key);
                 intent.PutExtra("image", flag);
                 intent.PutExtra("buttonSide", buttonSide);
+              
                 context.StartActivity(intent);
                 
             };

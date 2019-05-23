@@ -28,26 +28,5 @@ namespace CurrencyConverter
             }
             return -1;
         }
-
-
-        //public async Task<decimal> RequestAsync(string currencyCode1, string currencyCode2)
-        //{
-        //    using (var client = new System.Net.Http.HttpClient())
-        //    {
-        //        string url = $"https://free.currconv.com/api/v7/convert?q={currencyCode1}_{currencyCode2}&compact=ultra&apiKey=f731dbae8f77ddac4d07";
-
-        //        client.BaseAddress = new Uri(url);
-        //        var result = await client.GetAsync("/myEndpoint");
-        //        if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
-        //        {
-        //            //ok to process
-        //            var str = await result.Content.ReadAsStringAsync();
-                                                              
-        //            JObject o = JObject.Parse(str);
-        //            return Convert.ToDecimal(o[$"{currencyCode1}_{currencyCode2}"]);                                          
-        //        }
-        //    }
-        //    return -1M;
-        //}
     }
 }

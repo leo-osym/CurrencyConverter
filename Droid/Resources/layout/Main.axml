@@ -8,7 +8,7 @@
         android:background="#80CBC4">
 
     <TextView
-            android:text="TextView"
+            android:text=""
             android:id="@+id/update_data"
             android:background="#c45e66"
             android:textAlignment="center"
@@ -37,9 +37,9 @@
 
             <ImageView
                     android:id="@+id/left_flag"
-                    android:src="@drawable/au"
+                    android:src="@drawable/us"
                     android:layout_width="50dp"
-                    android:layout_height="20dp"/>
+                    android:layout_height="40dp"/>
 
             <TextView
                     android:id="@+id/left_key"
@@ -76,9 +76,9 @@
             <ImageView
                     android:id="@+id/right_flag"               
                     android:layout_width="50dp"
-                    android:layout_height="20dp"
+                    android:layout_height="40dp"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ca"
+                    android:src="@drawable/ua"
        
                     android:layout_centerInParent="true"/>
             <TextView
@@ -107,26 +107,25 @@
 
         <EditText
                 android:id="@+id/left_edit_text"
+                android:textAlignment="viewEnd"
+                android:gravity = "right|center"
+                android:enabled="true"
+                android:text = "0"
+                android:textColor="@android:color/black"
+                android:hint = "0"
+                android:textColorHint = "@android:color/black"
                 android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:textColor="#000000"
-			    android:hint="0"
-                android:inputType="numberDecimal"
-			    android:textColorHint="#000000"
+                android:layout_height="match_parent"                
+                android:inputType="numberDecimal"			 
                 android:layout_marginLeft="15dp"
                 android:background="#FFFFFF"
                 android:ems="10"
                 android:layout_weight="1"/>
         <Button               
-                android:id="@+id/switch_button"
-             
+                android:id="@+id/switch_button"            
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                
-			    android:background="@drawable/exchangeButton"
-			  
-                
-            
+                android:layout_height="wrap_content"               
+			    android:background="@drawable/exchangeButton"			                 
                 android:layout_gravity="center"
 			    android:clickable="false"
                 android:layout_marginRight="15dp"
@@ -135,11 +134,15 @@
 
         <EditText
                 android:id="@+id/right_edit_text"
+                android:textAlignment="viewEnd"
+                android:gravity = "right|center"
+                android:enabled="true"
+                android:hint = "0"
+                android:textColor="@android:color/black"
+                android:textColorHint = "@android:color/black"
+                android:text = "0"
                 android:layout_width="120dp"
-                android:layout_height="match_parent"
-			    android:hint="0"
-                android:textColor="#000000"
-			   android:textColorHint="#000000"
+                android:layout_height="match_parent"			                   			   
                 android:inputType="numberDecimal"
                 android:background="#FFFFFF"
                 android:layout_marginRight="15dp"
