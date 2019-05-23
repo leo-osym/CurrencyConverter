@@ -134,6 +134,8 @@
     <ImageAsset Include="Resources\Assets.xcassets\ua.imageset\ua%403x.png" />
     <ImageAsset Include="Resources\Assets.xcassets\us.imageset\us%402x.png" />
     <ImageAsset Include="Resources\Assets.xcassets\us.imageset\us%403x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\exchangebutton.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\exchangebutton.imageset\exchangebutton.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />

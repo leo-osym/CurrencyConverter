@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Threading.Tasks;
 using UIKit;
 
 namespace CurrencyConverter.iOS
@@ -9,6 +9,8 @@ namespace CurrencyConverter.iOS
 
         public string _segue;
         public  int flag = 3;
+        Requester requester;
+        Interactor interactor;
        
        
 
@@ -20,30 +22,18 @@ namespace CurrencyConverter.iOS
         }
 
 
-        public async override void ViewDidLoad()
+        public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-
-            // Perform any additional setup after loading the view, typically from a nib.
-
-            var requester = new Requester();
-            var interactor = new Interactor(requester);
-            decimal value = 1;
-
-            decimal.TryParse(textEditLeft.Text, out value);
-            var temp = await interactor.GetCourse(buttonLabelLeft.Text, buttonLabelRight.Text, value);
-            textEditRight.Text = temp.ToString();
+            requester = new Requester();
+            interactor = new Interactor(requester);
 
             textEditLeft.EditingChanged += async (sender, e) => {
-                decimal.TryParse(textEditLeft.Text, out value);
-                temp = await interactor.GetCourse(buttonLabelLeft.Text, buttonLabelRight.Text, value);
-                textEditRight.Text = temp.ToString();
+                await SetDataToFields(buttonLabelLeft, buttonLabelRight, textEditLeft, textEditRight);
             };
             textEditRight.EditingChanged += async (sender, e) => {
-                decimal.TryParse(textEditRight.Text, out value);
-                temp = await interactor.GetCourse(buttonLabelRight.Text, buttonLabelLeft.Text, value);
-                textEditLeft.Text = temp.ToString();
+                await SetDataToFields(buttonLabelRight, buttonLabelLeft, textEditRight, textEditLeft);
             };
 
             btnChangeCurrencyLeft.TouchUpInside += (sender, e) => {
@@ -63,11 +53,20 @@ namespace CurrencyConverter.iOS
 
         }
 
+        private async Task SetDataToFields(UILabel label1, UILabel label2, UITextField tfield1, UITextField tfield2)
+        {
+            decimal value = 1;
+            decimal.TryParse(tfield1.Text, out value);
+            var temp = await interactor.GetCourse(label1.Text, label2.Text, value);
+            tfield2.Text = String.Format("{0:0.00}", temp);
+            TimeLabel.Text = interactor.LastTimeUpdated;
+        }
 
 
-        public override void ViewWillAppear(bool animated)
+        public override async void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
+            await SetDataToFields(buttonLabelLeft, buttonLabelRight, textEditLeft, textEditRight);
             if (_segue != null)
                 if (flag == 1)
                 {
@@ -97,21 +96,16 @@ namespace CurrencyConverter.iOS
             // Release any cached data, images, etc that aren't in use.
         }
 
-      
-
-
         public void TapGestureLeft () {
 
             UITapGestureRecognizer gestureL = new UITapGestureRecognizer();
-           
             gestureL.AddTarget(() => TapSelectViews());
-         
             btnChangeCurrencyLeft.AddGestureRecognizer(gestureL);
          
         }
+
         public void TapGestureRight()
         {
-
             UITapGestureRecognizer gestureR = new UITapGestureRecognizer();
             gestureR.AddTarget(() => TapSelectViews());
             btnChangeCurrentRight.AddGestureRecognizer(gestureR);
