@@ -7,7 +7,8 @@ namespace CurrencyConverter.iOS
 {
     public partial class TableView : UITableViewController, IUITableViewDataSource
     {
-        List<String> listItem =new List<string>(FlagsData.FlagDictionary.Keys);
+        FlagsData data = new FlagsData();
+        List<String> listItem;
 
         public ChosenButton chosenButton;
 
@@ -21,7 +22,8 @@ namespace CurrencyConverter.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            var myUIViewController = (this.NavigationController.ViewControllers[0] as MainViewController).operaitionIsDone = false;
+            listItem = new List<string>(data.FlagDictionary.Keys);
+            (NavigationController.ViewControllers[0] as MainViewController).operationIsDone = false;
         }
 
         public override void DidReceiveMemoryWarning()
@@ -33,16 +35,16 @@ namespace CurrencyConverter.iOS
 
         public override nint RowsInSection(UITableView tableView, nint section)
         {
-            return FlagsData.FlagDictionary.Count;
+            return data.FlagDictionary.Count;
         }
 
 
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
             var myUIViewController = this.NavigationController.ViewControllers[0] as MainViewController;
-            myUIViewController._segue = listItem[indexPath.Row];
+            myUIViewController.currencyKey = listItem[indexPath.Row];
             myUIViewController.chosenButton = chosenButton;
-            myUIViewController.operaitionIsDone = true;
+            myUIViewController.operationIsDone = true;
             NavigationController.PopViewController(true);
             tableView.DeselectRow(indexPath, true);
         }
@@ -54,7 +56,7 @@ namespace CurrencyConverter.iOS
             var cell = tableView.DequeueReusableCell(cellIdentifier) as TableViewCustomCell;
             string item = listItem[indexPath.Row];
 
-            var setImage = FlagsData.FlagDictionary[item];
+            var setImage = data.FlagDictionary[item];
             cell.ImageViewCell = UIImage.FromBundle(setImage.flagImage);
             cell.LabelCellTextAbriveature = item;
             cell.LabelCellTextDescription = setImage.description;
@@ -71,8 +73,7 @@ namespace CurrencyConverter.iOS
 
             if (segue.Identifier == "toTableView")
             {
-                var callMVController = segue.DestinationViewController
-                                              as MainViewController;
+                var callMVController = segue.DestinationViewController as MainViewController;
             }
         }
 

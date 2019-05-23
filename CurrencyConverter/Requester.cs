@@ -10,7 +10,7 @@ namespace CurrencyConverter
     {
         public async Task<decimal> RequestAsync(string currencyCode1, string currencyCode2)
         {
-            string url = $"https://free.currconv.com/api/v7/convert?q={currencyCode1}_{currencyCode2}&compact=ultra&apiKey=f731dbae8f77ddac4d07";
+            string url = $"https://free.currconv.com/api/v7/convert?q={currencyCode1}_{currencyCode2}&compact=ultra&apiKey=414b804213365ca9925e";
 
             try //System.Net.WebException
             {

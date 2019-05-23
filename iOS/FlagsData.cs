@@ -3,10 +3,9 @@ using System.Collections.Generic;
 
 namespace CurrencyConverter.iOS
 {
-  static  public class FlagsData
+    public class FlagsData
     {
-
-        public static Dictionary<string, FlagItem> FlagDictionary = new Dictionary<string, FlagItem>{
+        public Dictionary<string, FlagItem> FlagDictionary = new Dictionary<string, FlagItem>{
                 { "AUD", new FlagItem(flagImage: "au", description: "Australian dollar") },
                 { "CAD", new FlagItem(flagImage: "ca", description: "Canadian dollar") },
                 { "DKK", new FlagItem(flagImage: "dk", description: "Danish krone") },
@@ -27,13 +26,10 @@ namespace CurrencyConverter.iOS
 
             this.flagImage = flagImage;
             this.description = description;
-
         }
 
         public string flagImage { get; set; }
         public string description { get; set; }
-       
-
     }
 
 }

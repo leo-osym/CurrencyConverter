@@ -7,11 +7,12 @@ namespace CurrencyConverter.iOS
     public partial class MainViewController : UIViewController
     {
 
-        public string _segue;
+        public string currencyKey;
         public ChosenButton chosenButton;
-        public bool operaitionIsDone = false;
+        public bool operationIsDone = false;
         Requester requester;
         Interactor interactor;
+        FlagsData data = new FlagsData();
        
         public MainViewController() : base("MainViewController", null)
         {
@@ -47,19 +48,19 @@ namespace CurrencyConverter.iOS
 
         }
 
-        private async Task SetDataToFields(UILabel label1, UILabel label2, UITextField tfield1, UITextField tfield2)
+        private async Task SetDataToFields(UILabel label1, UILabel label2, UITextField textField1, UITextField textField2)
         {
-            decimal value = 1;
-            decimal.TryParse(tfield1.Text, out value);
-            var temp = await interactor.GetCourse(label1.Text, label2.Text, value);
-            if(temp != -1) 
+            decimal currencyValueFromField = 1;
+            decimal.TryParse(textField1.Text, out currencyValueFromField);
+            var receivedCurrencyRate = await interactor.GetCourse(label1.Text, label2.Text, currencyValueFromField);
+            if(receivedCurrencyRate != -1) 
             {
-                tfield2.Text = temp != 0 ? String.Format("{0:0.00}", temp) : "";
+                textField2.Text = receivedCurrencyRate != 0 ? String.Format("{0:0.00}", receivedCurrencyRate) : "";
                 TimeLabel.Text = interactor.LastTimeUpdated;
             }
             else 
             {
-                tfield2.Text = "";
+                textField2.Text = "";
                 TimeLabel.Text = "Connection error!";
             }
         }
@@ -69,18 +70,20 @@ namespace CurrencyConverter.iOS
         {
             base.ViewWillAppear(animated);
             await SetDataToFields(buttonLabelLeft, buttonLabelRight, textEditLeft, textEditRight);
-            if (_segue != null && operaitionIsDone)
+            if (currencyKey != null && operationIsDone)
             {
                 if (chosenButton == ChosenButton.LeftButton)
                 {
-                    buttonLabelLeft.Text = _segue;
-                    leftButtonImage.Image = UIImage.FromBundle(FlagsData.FlagDictionary[_segue].flagImage);
+                    //await SetDataToFields(buttonLabelLeft, buttonLabelRight, textEditLeft, textEditRight);
+                    buttonLabelLeft.Text = currencyKey;
+                    leftButtonImage.Image = UIImage.FromBundle(data.FlagDictionary[currencyKey].flagImage);
 
                 }
-                if (chosenButton == ChosenButton.RightButton)
+                else if (chosenButton == ChosenButton.RightButton)
                 {
-                    buttonLabelRight.Text = _segue;
-                    rightButtonImage.Image = UIImage.FromBundle(FlagsData.FlagDictionary[_segue].flagImage);
+                    //await SetDataToFields(buttonLabelRight, buttonLabelLeft, textEditRight, textEditLeft);
+                    buttonLabelRight.Text = currencyKey;
+                    rightButtonImage.Image = UIImage.FromBundle(data.FlagDictionary[currencyKey].flagImage);
                 }
             }
         }
@@ -90,6 +93,7 @@ namespace CurrencyConverter.iOS
             double temp = 0;
             double.TryParse(textEditLeft.Text, out temp);
             textEditLeft.Text = temp != 0 ? String.Format("{0:0.00}", temp) : "";
+
             (buttonLabelLeft.Text, buttonLabelRight.Text) = (buttonLabelRight.Text, buttonLabelLeft.Text);
             (rightButtonImage.Image, leftButtonImage.Image) = (leftButtonImage.Image,rightButtonImage.Image);
             (textEditLeft.Text, textEditRight.Text) = (textEditRight.Text, textEditLeft.Text);
