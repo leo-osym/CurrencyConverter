@@ -7,6 +7,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.App;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
@@ -17,12 +18,11 @@ namespace CurrencyConverter.Droid.Activities
     [Activity(Label = "ActivityList", Icon = "@mipmap/icon", 
         ParentActivity = typeof(MainActivity), ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class ActivityList : Activity
-
     {
         private RecyclerView recycler;
         private RecyclerView.LayoutManager layoutManager;
         private RecyclerView.Adapter adapter;
-        private bool buttonSide;
+        private string buttonSide;
 
         private string rightValue;
         private string leftValue;
@@ -41,21 +41,17 @@ namespace CurrencyConverter.Droid.Activities
 
             if (Intent.HasExtra("buttonSide"))
             {
-                buttonSide = Intent.GetBooleanExtra("buttonSide", true);
-                rightValue = Intent.GetStringExtra("rightEditText");
-                leftValue = Intent.GetStringExtra("leftEditText");
-                rightEditValue = Intent.GetStringExtra("rightEditValue");
-                leftEditValue = Intent.GetStringExtra("leftEditValue");
+                buttonSide = Intent.GetStringExtra("buttonSide");
 
             }
 
             recycler = FindViewById<RecyclerView>(Resource.Id.recycler);
-            recycler.SetAdapter(adapter);
+            //recycler.SetAdapter(adapter);
             recycler.HasFixedSize = true;
             layoutManager = new LinearLayoutManager(this);
             recycler.SetLayoutManager(layoutManager);
 
-            //adapter = new RecyclerView.Adapter(FlagsDictionary.FlagDictionary());
+           
             adapter = new CurrencyAdapter(this,buttonSide);
             recycler.SetAdapter(adapter);
           

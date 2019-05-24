@@ -1,8 +1,6 @@
 ﻿using Android.App;
 using Android.Widget;
 using Android.OS;
-using Android.Support.V7.App;
-using CurrencyConverter.Droid.CustomView;
 using System;
 using Android.Content;
 using CurrencyConverter.Droid.Activities;
@@ -12,6 +10,7 @@ using Android.Graphics.Drawables;
 using CurrencyConverter;
 using System.Threading.Tasks;
 using Android;
+using Android.Runtime;
 
 namespace CurrencyConverter.Droid
 {
@@ -22,7 +21,7 @@ namespace CurrencyConverter.Droid
         Requester reqester;
 
         bool isSwiped = false;
-        int flag = 0;
+        bool isFirstReqest = true;
 
         private RelativeLayout leftLayout;
         private RelativeLayout rightLayout;  
@@ -35,8 +34,7 @@ namespace CurrencyConverter.Droid
         private EditText rightEditText;
         private TextView topTextView;
 
-
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected async override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Main);
@@ -58,88 +56,91 @@ namespace CurrencyConverter.Droid
             topTextView.TextChanged += TopTextView_TextChanged;
             leftEditText.TextChanged += LeftEditText_TextChanged;
             rightEditText.TextChanged += RightEditText_TextChanged;
+            rightLayout.Click += RightLayout_Click;
+            leftLayout.Click += LeftLayout_Click;
+            switchButton.Click += SwitchButton_Click;
 
-      
-            rightLayout.Click += delegate
-            {
-                Helper.Helper.flag = 2;
-                var intent = new Intent(this, typeof(ActivityList));
-                intent.PutExtra("buttonSide", true);
-                Helper.Helper.leftEditTextRepo = leftEditText.Text;
-                Helper.Helper.rightEditTextRepo = rightEditText.Text;
-                StartActivity(intent);
-             
-                
-            };
+            BlockFields();
 
-            leftLayout.Click += delegate
-            {
-                Helper.Helper.flag = 1;
-                var intent = new Intent(this, typeof(ActivityList));
-                intent.PutExtra("buttonSide", false);
-                Helper.Helper.leftEditTextRepo = leftEditText.Text;
-                Helper.Helper.rightEditTextRepo = rightEditText.Text;
-                StartActivity(intent);
-            };
-
-            switchButton.Click += delegate
-            {              
-                Reverse();
-                
-            };          
+            await SetDataToFields(leftText, rightText, leftEditText, rightEditText);
         }
-
-        protected override void OnSaveInstanceState(Bundle outState)
+       
+        private void BlockFields()
         {
-        
-            outState.PutString("leftEditText", leftEditText.Text);
-            outState.PutString("rightEditText", rightEditText.Text);
-        
+            leftEditText.Enabled = false;
+            rightEditText.Enabled = false;
 
-            base.OnSaveInstanceState(outState);
+            leftEditText.SetBackgroundColor(Color.Gray);
+            rightEditText.SetBackgroundColor(Color.Gray);
         }
 
-        protected override void OnRestoreInstanceState(Bundle savedInstanceState)
+        private void LeftLayout_Click(object sender, EventArgs e)
         {
-            base.OnRestoreInstanceState(savedInstanceState);
-            leftEditText.Text = savedInstanceState.GetString("leftEditText");
-            rightEditText.Text = savedInstanceState.GetString("rightEditText");
-
+            var intent = new Intent(this, typeof(ActivityList));
+            intent.PutExtra("buttonSide", "leftButton");
+            StartActivityForResult(intent, 666);
         }
-     
+
+        private void RightLayout_Click(object sender, EventArgs e)
+        {
+            var intent = new Intent(this, typeof(ActivityList));
+            intent.PutExtra("buttonSide", "rightButton");
+            StartActivityForResult(intent, 666);
+        }
+
+
+        private void SwitchButton_Click(object sender, EventArgs e)
+        {
+            Reverse();
+        }
+
+        protected override async void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        {
+            if(requestCode == 666 && resultCode == Result.Ok)
+            {
+                if(data.HasExtra("buttonSide"))
+                {
+                    var v = data.GetStringExtra("buttonSide");
+                    var code = data.GetStringExtra("code");
+                    if (v == "leftButton")
+                    {
+                        var image = FlagsDictionary.FlagDictionary[code].Flag;
+                        leftImage.SetImageResource(image);
+                        leftText.SetText(code, null);
+                        await SetDataToFields(leftText, rightText, leftEditText, rightEditText);
+                    }
+                    else if (v == "rightButton")
+                    {
+                        var image = FlagsDictionary.FlagDictionary[code].Flag;
+                        rightImage.SetImageResource(image);
+                        rightText.SetText(code, null);
+                        await SetDataToFields(rightText, leftText, rightEditText, leftEditText);
+                    }
+                }              
+            }
+        }
+
         private void TopTextView_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
-        {           
-            topTextView.TextChanged -= TopTextView_TextChanged;
+        {
+            if (topTextView.Text != "Connection Error!" && isFirstReqest)
+            {
+                leftEditText.SetBackgroundColor(Color.White);
+                rightEditText.SetBackgroundColor(Color.White);
 
-            leftEditText.SetTextColor(Color.Black);
-            rightEditText.SetTextColor(Color.Black);
+                leftEditText.Enabled = true;
+                rightEditText.Enabled = true;
 
-            leftEditText.Enabled = true;
-            rightEditText.Enabled = true;                    
+                rightEditText.Text = "0";
+                isFirstReqest = false;
+            }
         }
-     
+
 
         private async void LeftEditText_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
         {
             if (leftEditText.IsFocused && !isSwiped)
             {
-                decimal value;
-                if (decimal.TryParse(leftEditText.Text, out value))
-                {
-                    string code1 = leftText.Text;
-                    string code2 = rightText.Text;
-
-
-                    var temp = await getCourse(code1, code2, value);
-                    
-                    rightEditText.Text = temp.ToString("0.00");
-                 
-                }
-
-                if(leftEditText.Length() == 0)
-                {
-                    rightEditText.Text = "";
-                }
+                await SetDataToFields(leftText, rightText, leftEditText, rightEditText);             
             }
         }
 
@@ -147,65 +148,28 @@ namespace CurrencyConverter.Droid
         {
             if (rightEditText.IsFocused && !isSwiped)
             {
-                decimal value;
-                if (decimal.TryParse(rightEditText.Text, out value))
-                {
-                    string code1 = rightText.Text;
-                    string code2 = leftText.Text;
-                
-                    var temp = await getCourse(code1, code2, value);
-                  
-
-                    leftEditText.Text = temp.ToString("0.00");
-                    
-                }
-
-                if (rightEditText.Length() == 0)
-                {
-                    leftEditText.Text = "";
-                }
-            }
-        }
-
-
-        public async Task<decimal> getCourse(string code1, string code2, decimal value)
-        {
-            var temp = await interactor.GetCourse(code1, code2, value);
-            if (temp != -1)
-            {
-                topTextView.Text = "Last Time update: " + interactor.LastTimeUpdated;
-                return temp;
-            }
-            else
-            {
-                topTextView.Text = "!";
-                return 0M;
+                await SetDataToFields(rightText, leftText, rightEditText, leftEditText);             
             }
         }
 
 
         private void Reverse()
-        {           
-            changeFocus();
+        {
+            ChangeFocus();
             isSwiped = true;
 
-            var flagTemp = GetBitmap(leftImage);
-            var keyTemp = leftText.Text;
-            var editTemp = leftEditText.Text;
-                        
-            leftImage.SetImageBitmap(GetBitmap(rightImage));
-            leftText.SetText(rightText.Text, null);
-            leftEditText.SetText(rightEditText.Text, null);
-
-            rightImage.SetImageBitmap(flagTemp);
-            rightText.SetText(keyTemp,null);
-            rightEditText.SetText(editTemp, null);
+            (rightEditText.Text, leftEditText.Text) = (leftEditText.Text, rightEditText.Text);
+            (rightText.Text, leftText.Text) = (leftText.Text, rightText.Text);
+            Drawable rightDrawable = rightImage.Drawable;
+            rightImage.SetImageDrawable(leftImage.Drawable);
+            leftImage.SetImageDrawable(rightDrawable);
 
             isSwiped = false;
-            changeFocus();
-        }
+            ChangeFocus();
 
-        private void changeFocus()
+
+        }
+        private void ChangeFocus()
         {
             if (rightEditText.IsFocused)
             {
@@ -217,42 +181,9 @@ namespace CurrencyConverter.Droid
             }
         }
 
-        private Bitmap GetBitmap(ImageView view)
-        {
-            view.BuildDrawingCache(true);
-            Bitmap bitmap = view.GetDrawingCache(true);
-            BitmapDrawable drawable = (BitmapDrawable)view.Drawable;
-            bitmap = drawable.Bitmap;
-            return bitmap;
-        }
-
         protected override async void OnResume()
         {
-            base.OnResume();
-
-       
-            if (Intent.HasExtra("buttonSide"))
-            {
-                var flag = Intent.GetIntExtra("image", 0);
-                var key = Intent.GetStringExtra("id");
-                var buttonSide = Intent.GetBooleanExtra("buttonSide", true);
-               var rightEdit = Intent.GetStringExtra("");
-                SetFlag(flag, key, buttonSide);
-            }
-
-
-
-            rightEditText.Text = Helper.Helper.rightEditTextRepo;
-            leftEditText.Text = Helper.Helper.leftEditTextRepo;
-
-            if (Helper.Helper.flag == 1)
-            {
-                await SetDataToFields(leftText, rightText, leftEditText, rightEditText);
-            }
-            else if (Helper.Helper.flag == 2)
-            {
-                await SetDataToFields(rightText, leftText, rightEditText, leftEditText);
-            }      
+            base.OnResume();    
         }
 
         private async Task SetDataToFields(TextView label1, TextView label2, EditText textField1, EditText textField2)
@@ -262,41 +193,12 @@ namespace CurrencyConverter.Droid
             var receivedCurrencyRate = await interactor.GetCourse(label1.Text, label2.Text, currencyValueFromField);
             if (receivedCurrencyRate != -1)
             {
-                textField2.Text = receivedCurrencyRate != 0 ? String.Format("{0:0.00}", receivedCurrencyRate) : "";               
+                textField2.Text = receivedCurrencyRate != 0 ? String.Format("{0:0.00}", receivedCurrencyRate) : "";
+                topTextView.Text = "Last Time update: " + interactor.LastTimeUpdated;
             }
             else
-            {
-                textField2.Text = "";            
-            }
-        }
-
-        private void SetFlag(int flag, string key, bool buttonSide)
-        {
-            switchButton.Clickable = true;
-            if (buttonSide)
-            {
-               
-                rightImage.SetImageResource(flag);
-                rightText.SetText(key, null);
-                Helper.Helper.saveRightImage = flag;
-                Helper.Helper.saveRightText = key;
-                Helper.Helper.leftEditTextRepo = leftEditText.Text;
-                leftImage.SetImageResource(Helper.Helper.saveLeftImage);
-                leftText.SetText(Helper.Helper.saveLeftText, null);
-               
-                
-            }
-            else
-            {
-               
-                leftImage.SetImageResource(flag);
-                leftText.SetText(key, null);
-                Helper.Helper.saveLeftImage = flag;
-                Helper.Helper.saveLeftText = key;
-                Helper.Helper.rightEditTextRepo = rightEditText.Text;
-                rightImage.SetImageResource(Helper.Helper.saveRightImage);
-                rightText.SetText(Helper.Helper.saveRightText, null);
-               
+            {                  
+                topTextView.Text = "Connection Error!";
             }
         }
     }

@@ -12,13 +12,9 @@ using Android.Widget;
 
 namespace CurrencyConverter.Droid.FlagList
 {
-    public static class FlagsDictionary
+    public class FlagsDictionary
     {
-        public static Dictionary<string, CurrencyKey> FlagDictionary { get; private set; }
-
-        public static void InitDictionary()
-        {
-            FlagDictionary = new Dictionary<string, CurrencyKey>()
+        public static Dictionary<string, CurrencyKey> FlagDictionary  = new Dictionary<string, CurrencyKey>()
             {
                 {"AUD", new CurrencyKey(flag:Resource.Mipmap.au,currencyDescription:"Австралийский доллар") },
                 {"CAD",new CurrencyKey(flag:Resource.Mipmap.ca,currencyDescription:"Канадский доллар") },
@@ -31,10 +27,7 @@ namespace CurrencyConverter.Droid.FlagList
                 {"UAH", new CurrencyKey(flag:Resource.Mipmap.ua,currencyDescription:"Украинская гривна") },
                 {"USD", new CurrencyKey(flag:Resource.Mipmap.us,currencyDescription:"Американский доллар") },
             };
-
-
         }
-    }
 
     public class CurrencyKey
     {
