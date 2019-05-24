@@ -15,7 +15,7 @@ using Android;
 
 namespace CurrencyConverter.Droid
 {
-    [Activity(Label = "CurrencyConverter", Icon = "@mipmap/icon")]
+    [Activity(Label = "CurrencyConverter", Icon = "@mipmap/icon", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class MainActivity : Activity
     {
         Interactor interactor;

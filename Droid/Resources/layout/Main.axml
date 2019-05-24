@@ -8,7 +8,7 @@
         android:background="#80CBC4">
 
     <TextView
-            android:text=""
+            android:text="Connection..."
             android:id="@+id/update_data"
             android:background="#c45e66"
             android:textAlignment="center"

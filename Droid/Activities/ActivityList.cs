@@ -14,7 +14,8 @@ using CurrencyConverter.Droid.FlagList;
 
 namespace CurrencyConverter.Droid.Activities
 {
-    [Activity(Label = "ActivityList", Icon = "@mipmap/icon")]
+    [Activity(Label = "ActivityList", Icon = "@mipmap/icon", 
+        ParentActivity = typeof(MainActivity), ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class ActivityList : Activity
 
     {
@@ -33,6 +34,10 @@ namespace CurrencyConverter.Droid.Activities
 
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.list_flags);
+
+            ActionBar.SetHomeButtonEnabled(true);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
+
 
             if (Intent.HasExtra("buttonSide"))
             {
@@ -53,12 +58,20 @@ namespace CurrencyConverter.Droid.Activities
             //adapter = new RecyclerView.Adapter(FlagsDictionary.FlagDictionary());
             adapter = new CurrencyAdapter(this,buttonSide);
             recycler.SetAdapter(adapter);
-
-
-           
-
+          
         }
 
-        
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    Finish();
+                    return true;
+
+                default:
+                    return base.OnOptionsItemSelected(item);
+            }
+        }
     }
 }

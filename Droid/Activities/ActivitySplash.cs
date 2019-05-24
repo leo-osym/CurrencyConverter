@@ -16,7 +16,8 @@ using CurrencyConverter.Droid.FlagList;
 
 namespace CurrencyConverter.Droid.Activities
 {
-    [Activity(MainLauncher = true,Theme ="@style/MyTheme.Splash",NoHistory =true)]
+    [Activity(MainLauncher = true,Theme ="@style/MyTheme.Splash",NoHistory = true, 
+        ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     class ActivitySplash :AppCompatActivity
     {
         static readonly string TAG = "X:" + typeof(ActivitySplash).Name;
@@ -26,8 +27,6 @@ namespace CurrencyConverter.Droid.Activities
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.layout_splash_screen);
             FlagsDictionary.InitDictionary();
-
-
         }
         
             protected override void OnResume()
