@@ -33,7 +33,6 @@ namespace CurrencyConverter.iOS
                 await SetDataToFields(buttonLabelLeft, buttonLabelRight, textEditLeft, textEditRight);
             };
             textEditRight.EditingChanged += async (sender, e) => {
-                //if (String.IsNullOrEmpty(textEditRight.Text)) textEditLeft.Text = "0.00";
                 await SetDataToFields(buttonLabelRight, buttonLabelLeft, textEditRight, textEditLeft);
             };
 
@@ -56,7 +55,7 @@ namespace CurrencyConverter.iOS
             if(receivedCurrencyRate != -1) 
             {
                 textField2.Text = receivedCurrencyRate != 0 ? String.Format("{0:0.00}", receivedCurrencyRate) : "";
-                TimeLabel.Text = interactor.LastTimeUpdated;
+                TimeLabel.Text = $"Last time updated: {interactor.LastTimeUpdated}";
             }
             else 
             {
@@ -74,14 +73,12 @@ namespace CurrencyConverter.iOS
             {
                 if (chosenButton == ChosenButton.LeftButton)
                 {
-                    //await SetDataToFields(buttonLabelLeft, buttonLabelRight, textEditLeft, textEditRight);
                     buttonLabelLeft.Text = currencyKey;
                     leftButtonImage.Image = UIImage.FromBundle(data.FlagDictionary[currencyKey].flagImage);
 
                 }
                 else if (chosenButton == ChosenButton.RightButton)
                 {
-                    //await SetDataToFields(buttonLabelRight, buttonLabelLeft, textEditRight, textEditLeft);
                     buttonLabelRight.Text = currencyKey;
                     rightButtonImage.Image = UIImage.FromBundle(data.FlagDictionary[currencyKey].flagImage);
                 }
